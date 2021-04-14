@@ -42,7 +42,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if(Auth::check())
-                            <li class="txt-white"><b>Welcome,</b> {{ ucfirst(Auth::user()->name) }}</li>
+                            <li class="txt-white"><b>Welcome,</b> {{ ucfirst(Auth::user()->name) }} </li>
                         @endif
                     </ul>
 

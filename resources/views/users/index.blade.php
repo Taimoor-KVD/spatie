@@ -16,11 +16,13 @@
             <h5>Users Management</h5>
         </div>
       </div>
+      @can('user-create')
       <div class="col-lg-2">
         <div class="float-right">
             <a class="btn btn-success btn-sm" href="{{ route('users.create') }}">Create User</a>
         </div>
       </div>
+      @endcan
     </div>
   </div>
   
