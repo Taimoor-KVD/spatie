@@ -84,10 +84,8 @@ class RoleController extends Controller
             ->where("role_has_permissions.role_id",$id)
             ->get();
 
-
         return view('roles.show',compact('role','rolePermissions'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -106,7 +104,6 @@ class RoleController extends Controller
 
         return view('roles.edit',compact('role','permission','rolePermissions'));
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -134,6 +131,7 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -189,4 +187,65 @@ class RoleController extends Controller
             ]);
         return redirect('/permissions')->with('success','Permission created successfully');
     }   
+
+    /**
+     * Custom function for showing permissions a/c to ID.
+     *
+     * 
+     * 
+     */
+    public function show_permission($id)
+    {
+        $permission = Permission::find($id);
+        return view('permissions.show', compact('permission'));
+    }
+    
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_permission($id)
+    {
+        $permission = Permission::find($id);
+        return view('permissions.edit', compact('permission'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_permission(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'guard_name' => 'required',
+        ]);
+        
+        $permission = Permission::find($id);
+        $permission->name = $request->input('name');
+        $permission->guard_name = $request->input('guard_name');
+        $permission->save();
+
+        return redirect('/permissions')->with('success','Permission updated successfully');
+    }
+
+    /**
+     * Delete the specified permission from database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_permission($id)
+    {
+        $permission = Permission::find($id);
+        $permission->delete();
+
+        return redirect('/permissions')->with('success','Permission deleted successfully');
+    }
 }

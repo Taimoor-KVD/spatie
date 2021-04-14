@@ -71,7 +71,7 @@
                         @endcan
                         @can('permission-list')
                             <li class="nav-link">
-                                <a class="txt-white" href="permissions">Manage Permission</a>
+                                <a class="txt-white" href="{{ url('permissions') }}">Manage Permission</a>
                             </li>
                         @endcan
                             <li class="nav-item nav-link dropdown">

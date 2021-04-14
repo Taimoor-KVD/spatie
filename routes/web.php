@@ -29,4 +29,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('permissions','RoleController@permissions');
     Route::get('create-permission','RoleController@create_permission');
     Route::post('store-permission','RoleController@store_permission');
+    Route::get('show-permission/{id}','RoleController@show_permission');
+    Route::get('edit-permission/{id}','RoleController@edit_permission');
+    Route::post('update-permission/{id}','RoleController@update_permission');
+    Route::post('delete-permission/{id}','RoleController@delete_permission');
 });

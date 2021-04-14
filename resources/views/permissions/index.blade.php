@@ -38,18 +38,23 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $permission->name }}</td>
                     <td>
-                        <form action="delete-permission" method="POST">
-                            <a class="btn btn-info btn-sm" href="">Show</a>
+                        
+                        <form action="{{ url('delete-permission/'.$permission->id) }}" method="POST">
+                            <a class="btn btn-info btn-sm" href="{{ url('show-permission/'.$permission->id) }}">
+                                Show
+                            </a>
                             @can('permission-edit')
-                            <a class="btn btn-warning btn-sm" href="">Edit</a>
+                                <a class="btn btn-warning btn-sm" href="{{ url('edit-permission/'.$permission->id) }}">
+                                    Edit
+                                </a>
                             @endcan
 
                             @csrf
-                            @method('DELETE')
                             @can('permission-delete')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             @endcan
                         </form>
+
                     </td>
                 </tr>
                 @endforeach
