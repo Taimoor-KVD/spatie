@@ -7,16 +7,20 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    
+
 <div class="card">
     <div class="card-header">
         <div class="row">
             <div class="col-md-10">
                 <h5 class="card-title">Permissions</h5>
             </div>
+            @can('permission-create')
             <div class="col-md-2">
-                <a href="create-permission" class="float-right btn btn-primary">Add</a>
+                <div class="float-right">
+                    <a href="create-permission" class="btn btn-success btn-sm">Create Permission</a>
+                </div>
             </div>
+            @endcan
         </div>
     </div>
     <div class="card-body">
@@ -25,7 +29,7 @@
                 <tr>
                     <th>No</th>
                     <th>Name</th>
-                    <!-- <th width="280px">Action</th> -->
+                    <th width="280px">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +37,20 @@
                 <tr>
                     <td>{{ ++$i }}</td>
                     <td>{{ $permission->name }}</td>
+                    <td>
+                        <form action="delete-permission" method="POST">
+                            <a class="btn btn-info btn-sm" href="">Show</a>
+                            @can('permission-edit')
+                            <a class="btn btn-warning btn-sm" href="">Edit</a>
+                            @endcan
+
+                            @csrf
+                            @method('DELETE')
+                            @can('permission-delete')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            @endcan
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

@@ -5,18 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel 5.8 User Roles and Permissions Tutorial') }}</title>
+    <title>{{ config('app.name', 'Laravel 7 User Roles and Permissions Project') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Custome CSS -->
+    <style>
+        .txt-white{
+            color:white;
+        }
+        .txt-white:hover {
+            color:lightgray;
+            text-decoration:none;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel bg-secondary">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,7 +36,9 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto"></ul>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="txt-white"><b>Welcome,</b> {{ ucfirst(Auth::user()->name) }}</li>
+                    </ul>
 
 
                     <!-- Right Side Of Navbar -->
@@ -35,13 +48,29 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                            <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
-                            <li><a class="nav-link" href="permissions">Manage Permission</a></li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                        @can('user-list')
+                            <li class="nav-link">
+                                <a class="txt-white" href="{{ route('users.index') }}">Manage Users</a>
+                            </li>
+                        @endcan
+                        @can('role-list')
+                            <li class="nav-link">
+                                <a class="txt-white" href="{{ route('roles.index') }}">Manage Role</a>
+                            </li>
+                        @endcan
+                        @can('product-list')    
+                            <li class="nav-link">
+                                <a class="txt-white" href="{{ route('products.index') }}">Manage Product</a>
+                            </li>
+                        @endcan
+                        @can('permission-list')
+                            <li class="nav-link">
+                                <a class="txt-white" href="permissions">Manage Permission</a>
+                            </li>
+                        @endcan
+                            <li class="nav-item nav-link dropdown">
+                                <a id="navbarDropdown" class="txt-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fa fa-user"></i> <span class="caret"></span>
                                 </a>
 
 

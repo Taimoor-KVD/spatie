@@ -179,7 +179,6 @@ class RoleController extends Controller
      */
     public function store_permission(Request $request)
     {
-        // dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'guard_name' => 'required',
